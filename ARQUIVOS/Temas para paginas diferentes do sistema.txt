@@ -1,0 +1,35 @@
+Alguns dos temas do prime faces: trontastic, afterwork, humanity, blitzer, redmond, black-tie
+ 
+Declarei uma variável no bean de sessão, e de acordo com o acesso ele muda o tema.
+No arquivo web.xml foi bem simples, não sabia que poderia chamar uma variável do Bean nele.
+
+acrescentar no web.xml da seguinte forma:
+
+<context-param>  
+        <param-name>primefaces.THEME</param-name>  
+        <param-value>#{sessionBean.theme}</param-value>  
+</context-param>
+
+no SessionBean.java algo como:
+
+if ((getUsername().toUpperCase().equals(getValidUsername()) && (getPassword().equals(getValidPassword())))) {
+                setName(sessionDTO.getName());
+                
+                switch (sessionDTO.getAccess()) {
+                    case 1:
+                        setTheme("humanity");
+                        return "/faces/benefits/menuprincipal.xhtml?faces-redirect=true";
+                    case 2:
+                        setTheme("afterwork");
+                        return "/faces/purchases/menuprincipal.xhtml?faces-redirect=true";
+                    case 3:
+                        setTheme("blitzer");
+                        return "/faces/accountancy/menuprincipal.xhtml?faces-redirect=true";
+                    case 4:
+                        setTheme("redmond");
+                        return "/faces/humanresources/menuprincipal.xhtml?faces-redirect=true";
+                    default:
+                        setTheme("black-tie");
+                        return "/faces/management/menuprincipal.xhtml?faces-redirect=true";
+                }
+            }

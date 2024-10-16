@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+xmlns:ui="http://java.sun.com/jsf/facelets"
+xmlns:h="http://java.sun.com/jsf/html"
+xmlns:f="http://java.sun.com/jsf/core"
+xmlns:p="http://primefaces.org/ui"
+template = "/templates/modeloSistema.xhtml"
+>
+
+
+<ui:define name ="conteudo">
+
+
+    <h:outputText value="Bem Vindo ao Sistema DMVA"/>
+ </ui:define>
+
+    <ui:define name="metadata"/> 
+
+    <ui:define name="conteudo">
+    <h:body>
+
+    <p:messages autoUpdate="true" globalOnly="true" />  
+        <h:form id="frm-login">
+           <div align="center" >     
+          <p:panelGrid  columns="1" columnClasses="ui-grid-col-12" >  
+              <p:toolbar >
+                <f:facet name="left" >
+                    <h:outputText value="Faça Seu Login"  /> 
+                </f:facet>                
+              </p:toolbar> 
+
+     <!-- PainelGroup Serve para unir os elementos em um coluna --> 
+                <h:panelGroup> 
+                    <p:outputLabel for="cpf" value="CPF" style="margin-left:17px; font-weight:bold"/>
+                    <p:inputMask id="cpf" value="#{loginBean.usuario.cpf}" mask="999.999.999-99" />
+
+                </h:panelGroup>
+
+                <h:panelGroup>
+                     <p:outputLabel for="senha" value="Senha" style="font-weight:bold" />
+                    <p:password id="senha" maxlength="5" size="20" value="#{loginBean.usuario.senha}"/>
+                </h:panelGroup>
+                <p:commandButton value="Entrar" action="#{loginBean.login}" update="@form"/>
+                <p:commandLink value="Cadastrar" type="button" onclick="PF('dlg3').show();" />      
+         </p:panelGrid>
+               </div>  
+        </h:form>
+
+<h:graphicImage library="images" name="bg-01.jpg"/>
+
+    <p:dialog header="Cadastre Novo Usuário!!! " widgetVar="dlg3" showEffect="explode" hideEffect="bounce" height="100%" >
+        <h:form id="frm-cadastro">        
+    <h:panelGrid columns="2" >
+        <h:outputLabel for="nome" value="Nome:" style="font-weight:bold"/>
+        <p:inputText id="nome" value="#{loginBean.usuario.nome}"/>
+
+        <h:outputLabel for="Endereco" value="Endereço" style="font-weight:bold"/>
+         <p:inputText id="Endereco" value="#{loginBean.usuario.endereco}" />
+
+        <h:outputLabel for="cpf" value="CPF:" style="font-weight:bold"/>
+        <p:inputMask id="cpf" value="#{loginBean.usuario.cpf}" mask="999.999.999-99" />
+
+        <h:outputLabel for="telefone" value="Telefone:" style="font-weight:bold"/>
+         <p:inputMask id="telefone" value="#{loginBean.usuario.telefone}" mask="(99)-9999-9999" />
+
+        <h:outputLabel for="senha" value="Senha" style="font-weight:bold"/>
+         <p:password id="Senha" value="#{loginBean.usuario.senha}" />
+
+
+    </h:panelGrid>
+         <p:commandButton value="Salvar" action="#{loginBean.Cadastrar}" oncomplete="PF('dlg3').hide();" update="@form" />
+    </h:form>
+    </p:dialog>
+  </h:body> 
+
+
+
+</ui:define>
+
+</ui:composition>
